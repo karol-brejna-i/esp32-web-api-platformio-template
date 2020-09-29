@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <title>Arduino Remote Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            /*margin: 50px ; /* was: 10px auto 50px; */
+            margin: auto 50px;
+            background-color: #EEEEEE;
+            background: linear-gradient(#EDEAE1, #CDC8B5);
+            text-align: center;
+            box-shadow: 0 5px 2px 3px rgba(158, 158, 158, 0.4), 0 3px 5px #B7B6B6, 0 0 0 2px #BBB7AE, inset 0 -3px 1px 2px rgba(186, 178, 165, 0.5), inset 0 3px 1px 2px rgba(246, 245, 241, 0.3);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .box:active {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border-top: none;
+            border: 2px solid #BAB7AE;
+            background-color: #EEEEEE;
+            text-align: center;
+            position: relative;
+            color: #BAB7AE;
+            font-size: 64px;
+            line-height: 100px;
+            text-shadow: 0 1px 1px white, 0 1px 1px #BAB7AE;
+            box-shadow: 0 0 0 0 #BBB7AE;
+        }
+
+        .box:before {
+            content: " ";
+            display: block;
+            position: absolute;
+            z-index: -90;
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            border-top: 2px solid #CCC8BF;
+            border-bottom: 1px solid #F4F3F1;
+            box-shadow: inset 0 -2px 0 2px #F7F6F2, inset 0 2px 1px 1px #CCC8BF;
+            left: -17.5px;
+            top: -20px;
+            background: -moz-linear-gradient(#DAD6CB, #F1EDEA);
+            box-shadow: inset 1px 0 1px 0px #D9D9D9;
+        }
+
+        .box span {
+            display: inline-block;
+            box-shadow: inset 0 1px 1px 1px #7E7E7E, 0 1px 1px white;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background: linear-gradient(#AEADAA, #BAB7AE);
+            margin: 42px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ESP32 Web Server</h1>
+    <p>https://randomnerdtutorials.com/esp32-web-server-spiffs-spi-flash-file-system/</p>
+    <p>Remote transmitter state: off</p>
+    <div class="box" onmousedown="handlePress()" ontouchstart="handlePress()" ontouchend="handlerelease()"
+        onmouseup="handlerelease()" ontouchend="callfunction()">
+        <span></span>
+    </div>
+    <div class="message-box">
+        Last messages:
+        <span></span>
+    </div>
+    <p id="output">nothing received so far</p>
+</body>
+<script>
+    function handlerelease() {
+        console.log("zejszłem");
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/api/remote/1/off", true);
+        xhttp.send();
+    }
+
+    function handlePress() {
+        console.log("click");
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/api/remote/1/on", true);
+        xhttp.send();
+    }
+
+	// change this line to match the IP address of your Arduino
+	var source = new EventSource('http://192.168.1.14/evnets');
+	// or, in case you're using the PHP Script, use this line instead.
+	// var source = new EventSource('source.php');
+
+
+	var outputElement = document.getElementById('output');
+	var eventCounter = 0;
+
+	source.addEventListener('testeventcc', function(e) {
+		eventCounter++;
+		outputElement.innerText = e.data + " (" + eventCounter + " Events)";
+	}, false);
+
+	source.addEventListener('arduino', function(e) {
+		eventCounter++;
+		outputElement.innerText = e.data + " (" + eventCounter + " Events)";
+		var inputs = JSON.parse(e.data);
+		document.body.style.backgroundColor = inputs.in5 > 0 ? '#ff0000' : '#ffffff';
+		document.body.style.color = inputs.in6 > 0 ? 'fuchsia' : 'black';
+		outputElement.style.opacity = inputs.A0;
+	}, false);
+
+	source.addEventListener('open', function(e) {
+		console.log("connected");
+	}, false);
+
+	source.addEventListener('error', function(e) {
+		console.error(e);
+		if (e.readyState == EventSource.CLOSED) {
+		}
+	}, false);
+    
+</script>
+
+</html>

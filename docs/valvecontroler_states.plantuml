@@ -1,0 +1,20 @@
+@startuml Valve states
+!include puml-themes.priv/themes/cyborg-outline/puml-theme-cyborg-outline.puml
+
+UNKNOWN : there is no way to determine the state
+CLOSING : in process of closing
+OPENING : in process of opening
+OPEN: fully open
+CLOSED: fully closed
+
+[*] --> UNKNOWN
+UNKNOWN -> [*]
+UNKNOWN -> OPEN
+UNKNOWN -> CLOSED
+
+OPEN --> CLOSING
+CLOSING --> CLOSED
+
+CLOSED -> OPENING
+OPENING --> OPEN
+@enduml

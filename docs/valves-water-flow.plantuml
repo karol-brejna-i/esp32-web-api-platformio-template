@@ -1,0 +1,40 @@
+@startuml Domain Model
+!include puml-themes.priv/themes/cyborg-outline/puml-theme-cyborg-outline.puml
+
+object Crane  {
+
+}
+
+
+object DrainValve  {
+    purpose: String = "drop water"
+}
+
+object MainValve  {
+    purpose: String = "Enable water flow"
+}
+
+
+MainValve -> DrainValve
+note top on link
+if MainValve is open
+the water starts flowing
+to drop valve
+end note
+
+DrainValve -> Crane
+note top on link
+if DrainValve is closed
+the water flows to the crane.
+if DrainValve is open,
+the wateter is dropped (wasted)
+end note
+
+note top
+We don't have automatic control over the crane.
+It is controlled manually.
+end note
+
+
+
+@enduml

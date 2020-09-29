@@ -1,0 +1,40 @@
+@startuml
+!include puml-themes.priv/themes/cyborg-outline/puml-theme-cyborg-outline.puml
+
+header
+Do not use in production ;-)
+endheader
+
+title DrainValve auto-service
+
+start
+:Remember current MainValve state;
+note right
+    If we want to restore previous state.
+    Alternatively we can always end
+    the autoservice routine with closed valves.
+end note
+:Remember current DrainValve state;
+
+
+repeat  :Close MainValve;
+    backward :warn about wrong state;
+repeat while (MainValve closed) is (no) not (yes)
+
+
+repeat :Open DrainValve;
+    :Close DrainValve;
+    ' backward :warn about wrong state;
+repeat while (n repetitions)
+
+
+:Restore DrainValve state;
+:Restore MainValve state;
+note right
+    Again, either we restore previos state
+    or we agree on finishing the procedure
+    with valves closed.
+end note
+
+stop
+@enduml

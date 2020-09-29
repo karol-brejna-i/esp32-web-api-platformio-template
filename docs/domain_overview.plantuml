@@ -1,0 +1,30 @@
+@startuml Domain Model
+!include puml-themes.priv/themes/cyborg-outline/puml-theme-cyborg-outline.puml
+
+
+class Valve  {
+    purpose: String
+}
+
+class Relay {
+    state: boolean
+}
+
+note right
+Do we want (are ablot to) to keep
+the state of the Relay or
+the state of the Valve?
+end note
+
+
+class RelayBoard
+
+RelayBoard  *--> "4" Relay : buildOf >
+
+Valve "1" - "1" Relay : turnedOnBy
+Valve "1" - "1" Relay : turnedOffBy
+
+class MicroController
+
+MicroController --> "*" Relay
+@enduml
