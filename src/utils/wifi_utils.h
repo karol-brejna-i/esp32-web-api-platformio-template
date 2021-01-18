@@ -6,6 +6,7 @@
 #include <ESPAsyncTCP.h>
 #endif
 
+#include <ESPAsyncWebServer.h>
 
 void setupWiFi(const char* ssid, const char* password);
 void waitForConnection();

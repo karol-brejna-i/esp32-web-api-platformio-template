@@ -11,7 +11,7 @@ void handleDoUpdate(AsyncWebServerRequest *request, const String &filename, size
         debugV("Update");
         content_len = request->contentLength();
         // if filename includes spiffs, update the spiffs partition
-        int cmd = (filename.indexOf("spiffs") > -1) ? U_FS : U_FLASH;
+        int cmd = (filename.indexOf("spiffs") > -1) ? U_PART : U_FLASH;
 #ifdef ESP8266
         Update.runAsync(true);
         if (!Update.begin(content_len, cmd))
@@ -48,6 +48,7 @@ void handleDoUpdate(AsyncWebServerRequest *request, const String &filename, size
         else
         {
             debugV("Update complete");
+            Serial.flush();
             ESP.restart();
         }
     }

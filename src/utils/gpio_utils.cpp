@@ -7,18 +7,10 @@ void setupGPIOs()
     // declare GIOs function
     pinMode(SIGNAL_LED, OUTPUT);
     pinMode(STER, OUTPUT);
+    // digitalWrite(SIGNAL_LED, HIGH);
+    // digitalWrite(STER, HIGH);
     digitalWrite(SIGNAL_LED, HIGH);
-    digitalWrite(STER, HIGH);
-
-    pinMode(MAIN_VALVE_OPEN, OUTPUT);
-    pinMode(MAIN_VALVE_CLOSE, OUTPUT);
-    pinMode(DRAIN_VALVE_OPEN, OUTPUT);
-    pinMode(DRAIN_VALVE_CLOSE, OUTPUT);
-
-    digitalWrite(MAIN_VALVE_OPEN, LOW);
-    digitalWrite(MAIN_VALVE_CLOSE, LOW);
-    digitalWrite(DRAIN_VALVE_OPEN, LOW);
-    digitalWrite(DRAIN_VALVE_CLOSE, LOW);
+    digitalWrite(STER, LOW);
 }
 
 void powerOn()

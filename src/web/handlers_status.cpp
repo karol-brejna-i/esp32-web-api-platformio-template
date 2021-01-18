@@ -18,7 +18,12 @@ ValveController* testValveController = NULL;
 void handleStatus(AsyncWebServerRequest *request)
 {
     debugI("handleStatus");
+    // TODO XXX create getHostname util function
+    #ifdef ESP32
+    String hostname = WiFi.getHostname();
+    #else
     String hostname = WiFi.hostname();
+    #endif
     int strength = WiFi.RSSI();
 
     if (statusBlink == NULL) {

@@ -1,6 +1,6 @@
 
 #ifndef BUILD_NUMBER
-  #define BUILD_NUMBER "474"
+  #define BUILD_NUMBER "76"
 #endif
 
 #ifndef VERSION
@@ -8,13 +8,13 @@
 #endif
 
 #ifndef BUILD_VERSION
-  #define BUILD_VERSION "0.0.10.200929.474"
+  #define BUILD_VERSION "0.0.10.210118.76"
 #endif
 
 #ifndef BUILD_TIMESTAMP
-  #define BUILD_TIMESTAMP "2020-09-29 07:52:39.283550"
+  #define BUILD_TIMESTAMP "2021-01-18 10:08:30.741086"
 #endif
 
 #ifndef VERSION_JSON
-  #define VERSION_JSON "{\"version\": \"0.0.10\", \"buildVersion\": \"0.0.10.200929.474\", \"timestamp\": \"2020-09-29 07:52:39.283550\"}"
+  #define VERSION_JSON "{\"version\": \"0.0.10\", \"buildVersion\": \"0.0.10.210118.76\", \"timestamp\": \"2021-01-18 10:08:30.741086\"}"
 #endif

@@ -21,7 +21,7 @@
 error "debuger enabled"
 #endif
 
-    RemoteDebug Debug;
+RemoteDebug Debug;
 
 Scheduler runner;
 // debug task;
@@ -81,13 +81,17 @@ void setup()
     setupWebServer();
 
     // Initialize RemoteDebug // TODO move to a dedicated function/file
+    #ifdef ESP32
+    String hostname = WiFi.getHostname();
+    #else
     String hostname = WiFi.hostname();
+    #endif
     Debug.setResetCmdEnabled(true);
     // Debug.showProfiler(true);
     Debug.showColors(true);
     Debug.showTime(true);
-    Debug.setSerialEnabled(true);
-    Debug.begin(hostname, Debug.INFO);
+    Debug.setSerialEnabled(false);
+    Debug.begin(hostname, Debug.DEBUG);
 
     String helpCmd = "inputX -- where X is GPIO number (i.e.1, 2, 6, 9, 20) -- set given GPIO to INPUT mode\n";
     helpCmd.concat("outputX -- where X is GPIO number (i.e.1, 2, 6, 9, 20) -- set given GPIO to OUTPUT mode");
@@ -102,6 +106,8 @@ void loop()
 {
     runner.execute();
     // delay(10);
+    // blink();
+    // Serial.print(".");
 
     Debug.handle();
     yield();

@@ -22,7 +22,7 @@ Build flag in platform.ini, for example:
 build_flags =
   -DWIFI_SSID="\"My ssid name\""
   -DWIFI_PASS="\"My password\""
-  -DDEBUG
+  -DDEBUG_ON
 ```
 
 Explicit definition in the code (main.cpp):
@@ -64,7 +64,8 @@ monitor_speed = 115200
 * Prototype web ui to press/release remote control button
 * Automatically turn off the controler after given timeout (not drain bateries in case of a bug)
 
-## To be implemented
-* Add responsive web ui
-* Add websocket/server side events communication -- inform the clients about state changes
-* Add minimal time teshold -- turn the remote on only when the button is pressed (held) for at leaset n seconds
+## TODO
+* remove unused (valve) code
+* in readme you mention com ports used in wsl. is wsl2 even able to see com ports?
+* src\web\handlers_status.cpp:21:28: error: 'class ESP8266WiFiClass' has no member named 'getHostname'; fix .hostname() vs .getHostname for esp32 or esp8266; String hostname = WiFi.getHostname();
+* clean up the OTA code: https://github.com/lbernstone/asyncUpdate/blob/master/AsyncUpdate.ino

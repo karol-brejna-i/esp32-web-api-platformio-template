@@ -1,3 +1,6 @@
+#define LED_BUILTIN 4
+
+
 // PILOT MA PO PRAWEJ MINUS WE WŁĄCZNIKU
 #define RED_LED 33 //GPIO33
 #define GPIO_13 13
@@ -9,16 +12,16 @@
 #define GPIO_16 16
 
 // #define STER GPIO_16
-#define STER GPIO_05
-#define SIGNAL_LED LED_BUILTIN
+#define STER LED_BUILTIN
+#define SIGNAL_LED RED_LED
 #define PRESS_DELAY 4000
 #define FLASH_DELAY 100
 
 
 // XXX in progress, wiring the valves
-#define MAIN_VALVE_OPEN     D1
-#define MAIN_VALVE_CLOSE    D2
-#define DRAIN_VALVE_OPEN    D4
+#define MAIN_VALVE_OPEN     GPIO_16 //D1
+#define MAIN_VALVE_CLOSE    GPIO_16 //D2
+#define DRAIN_VALVE_OPEN    GPIO_16 //D4
 #define DRAIN_VALVE_CLOSE   3 //GPIO02
 
 void setupGPIOs();
